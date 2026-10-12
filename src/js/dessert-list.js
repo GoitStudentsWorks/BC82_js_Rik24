@@ -1,19 +1,21 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import iconsUrl from '../img/icons.svg';
 
-const BASE_URL = 'https://deserts-store.b.goit.study/api';
+axios.defaults.baseURL = 'https://deserts-store.b.goit.study/api/';
+
 const LIMIT = 8;
-const categoriesList = document.querySelector('.category-list');
-const dessertList = document.querySelector('.dessert-list');
-const loadMoreBtn = document.querySelector('.load-more-btn');
-const loader = document.querySelector('.loader');
+const categoriesListEl = document.querySelector('.category-list');
+const dessertListEl = document.querySelector('.dessert-list');
+const loadMoreBtnEl = document.querySelector('.load-more-btn');
+const loaderEl = document.querySelector('.loader');
 
 let currentPage = 1;
 let selectedCategoryId = 'select-all';
 
 async function getCategories() {
-  const res = await axios.get(`${BASE_URL}/categories`);
+  const res = await axios.get('categories');
   return res.data;
 }
 
@@ -27,7 +29,7 @@ async function getDesserts(page, category) {
     params.category = category;
   }
 
-  const res = await axios.get(`${BASE_URL}/desserts`, {
+  const res = await axios.get('desserts', {
     params: params,
   });
   return res.data;
@@ -41,7 +43,7 @@ function renderCategories(categories) {
     )
     .join('');
 
-  categoriesList.insertAdjacentHTML('beforeend', markup);
+  categoriesListEl.insertAdjacentHTML('beforeend', markup);
 }
 
 function createDessertsMarkup(desserts) {
@@ -56,7 +58,7 @@ function createDessertsMarkup(desserts) {
           <p class="dessert-price">${dessert.price} грн</p>
           <button type="button" class="dessert-btn" data-id="${dessert._id}" aria-label="Детальніше про ${dessert.name}">
             <svg class="dessert-btn-icon" width="24" height="24">
-              <use href="/img/icons.svg#arrow_outwardicon"></use>
+              <use href="${iconsUrl}#arrow_outwardicon"></use>
             </svg>
           </button>
         </div>
@@ -67,9 +69,9 @@ function createDessertsMarkup(desserts) {
 
 function updateLoadMoreBtn(totalItems) {
   if (currentPage * LIMIT < totalItems) {
-    loadMoreBtn.classList.add('is-visible');
+    loadMoreBtnEl.classList.add('is-visible');
   } else {
-    loadMoreBtn.classList.remove('is-visible');
+    loadMoreBtnEl.classList.remove('is-visible');
   }
 }
 
@@ -81,11 +83,11 @@ function showDessertsError() {
 }
 
 function showLoader() {
-  loader.classList.add('is-visible');
+  loaderEl.classList.add('is-visible');
 }
 
 function hideLoader() {
-  loader.classList.remove('is-visible');
+  loaderEl.classList.remove('is-visible');
 }
 
 async function init() {
@@ -96,7 +98,7 @@ async function init() {
     renderCategories(fetchedCategories);
 
     const fetchedDesserts = await getDesserts(currentPage, selectedCategoryId);
-    dessertList.innerHTML = createDessertsMarkup(fetchedDesserts.desserts);
+    dessertListEl.innerHTML = createDessertsMarkup(fetchedDesserts.desserts);
     updateLoadMoreBtn(fetchedDesserts.totalItems);
   } catch (err) {
     showDessertsError();
@@ -107,54 +109,54 @@ async function init() {
 
 init();
 
-const categoryWrap = document.querySelector('.category-wrap');
-const categoryToggle = document.querySelector('.category-toggle');
+const categoryWrapEl = document.querySelector('.category-wrap');
+const categoryToggleEl = document.querySelector('.category-toggle');
 
-categoryToggle.addEventListener('click', () =>
-  categoryWrap.classList.toggle('is-open')
+categoryToggleEl.addEventListener('click', () =>
+  categoryWrapEl.classList.toggle('is-open')
 );
 
-const currentCategory = document.querySelector('.current-category');
+const currentCategoryEl = document.querySelector('.current-category');
 
-currentCategory.textContent = categoriesList
+currentCategoryEl.textContent = categoriesListEl
   .querySelector('.is-active')
   .textContent.trim();
 
-categoriesList.addEventListener('click', async event => {
+categoriesListEl.addEventListener('click', async event => {
   const categoryBtn = event.target.closest('.category-select-btn');
   if (!categoryBtn) return;
 
-  const activeBtn = categoriesList.querySelector('.is-active');
+  const activeBtn = categoriesListEl.querySelector('.is-active');
   const prevCategoryId = selectedCategoryId;
   const prevPage = currentPage;
-  const wasLoadMoreVisible = loadMoreBtn.classList.contains('is-visible');
+  const wasLoadMoreVisible = loadMoreBtnEl.classList.contains('is-visible');
 
   activeBtn.classList.remove('is-active');
   categoryBtn.classList.add('is-active');
 
-  currentCategory.textContent = categoryBtn.textContent.trim();
-  categoryWrap.classList.remove('is-open');
+  currentCategoryEl.textContent = categoryBtn.textContent.trim();
+  categoryWrapEl.classList.remove('is-open');
 
   currentPage = 1;
   selectedCategoryId = categoryBtn.dataset.id;
 
   showLoader();
-  loadMoreBtn.classList.remove('is-visible');
+  loadMoreBtnEl.classList.remove('is-visible');
 
   try {
     const fetchedDesserts = await getDesserts(currentPage, selectedCategoryId);
-    dessertList.innerHTML = createDessertsMarkup(fetchedDesserts.desserts);
+    dessertListEl.innerHTML = createDessertsMarkup(fetchedDesserts.desserts);
     updateLoadMoreBtn(fetchedDesserts.totalItems);
   } catch (err) {
     categoryBtn.classList.remove('is-active');
     activeBtn.classList.add('is-active');
-    currentCategory.textContent = activeBtn.textContent.trim();
+    currentCategoryEl.textContent = activeBtn.textContent.trim();
 
     selectedCategoryId = prevCategoryId;
     currentPage = prevPage;
 
     if (wasLoadMoreVisible) {
-      loadMoreBtn.classList.add('is-visible');
+      loadMoreBtnEl.classList.add('is-visible');
     }
 
     showDessertsError();
@@ -164,20 +166,20 @@ categoriesList.addEventListener('click', async event => {
 });
 
 document.addEventListener('click', event => {
-  if (!categoryWrap.contains(event.target)) {
-    categoryWrap.classList.remove('is-open');
+  if (!categoryWrapEl.contains(event.target)) {
+    categoryWrapEl.classList.remove('is-open');
   }
 });
 
-loadMoreBtn.addEventListener('click', async () => {
+loadMoreBtnEl.addEventListener('click', async () => {
   currentPage += 1;
 
   showLoader();
-  loadMoreBtn.classList.remove('is-visible');
+  loadMoreBtnEl.classList.remove('is-visible');
 
   try {
     const fetchedDesserts = await getDesserts(currentPage, selectedCategoryId);
-    dessertList.insertAdjacentHTML(
+    dessertListEl.insertAdjacentHTML(
       'beforeend',
       createDessertsMarkup(fetchedDesserts.desserts)
     );

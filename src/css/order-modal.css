@@ -18,8 +18,8 @@
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 250ms ease,
+    visibility 250ms ease;
 }
 
 .order-modal-backdrop.is-modal-open {
@@ -54,6 +54,13 @@
 
   border: none;
   background-color: var(--opacity-transparent);
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.order-close-btn:hover,
+.order-close-btn:focus {
+  color: var(--color-wewak);
 }
 
 .order-close-icon {
@@ -111,6 +118,27 @@
   resize: none;
 }
 
+.order-error {
+  display: none;
+
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--red);
+}
+
+.order-error-large {
+  font-size: 16px;
+}
+
+.order-field.is-error .order-input {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.order-field.is-error .order-error {
+  display: block;
+}
+
 .order-submit-btn {
   width: 100%;
   padding: 10px 24px;
@@ -124,6 +152,20 @@
   line-height: 1.5;
 
   background-color: var(--color-wewak);
+
+  transition:
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.order-submit-btn:hover,
+.order-submit-btn:focus {
+  border-color: var(--color-neutral-darkest);
+  background-color: var(--color-white);
+}
+
+.order-submit-btn:active {
+  background-color: var(--color-wewak-light);
 }
 
 @media screen and (min-width: 768px) {
