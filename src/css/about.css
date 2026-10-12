@@ -58,13 +58,7 @@
   }
 
   .about-us__swiper .swiper-slide {
-    width: 335px !important;
-    height: 248px;
-    flex-shrink: 0;
-  }
-
-  .about-us__image {
-    width: 335px;
+    width: 100% !important;
     height: 248px;
   }
 
