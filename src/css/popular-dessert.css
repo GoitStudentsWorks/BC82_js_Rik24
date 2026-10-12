@@ -42,6 +42,7 @@
   flex-shrink: 0;
   margin-bottom: 16px;
   object-fit: cover;
+  aspect-ratio: 4 / 3;
 }
 .popular-product-list-item-info-wrapper {
   display: flex;
@@ -60,14 +61,12 @@
   min-height: 27px;
   font-weight: 500;
   font-size: 18px;
-  line-height: 1.5;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 4px;
 }
 .popular-product-list-item-description {
   font-size: 14px;
-  line-height: 1.5;
   min-height: 42px;
   max-height: 42px;
   overflow: hidden;
@@ -82,7 +81,6 @@
 .popular-product-list-item-price {
   font-weight: 500;
   font-size: 20px;
-  line-height: 1.5;
 }
 .popular-product-list-item-btn,
 .popular-swiper-button-next,
@@ -214,6 +212,5 @@
   .popular-product-list-item-img {
     height: auto;
     flex-basis: auto;
-    aspect-ratio: 4 / 3;
   }
 }
