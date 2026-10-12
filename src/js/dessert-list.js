@@ -50,7 +50,15 @@ function createDessertsMarkup(desserts) {
   return desserts
     .map(
       dessert => `<li class="dessert-item">
-        <img class="dessert-img" src="${dessert.image}" alt="${dessert.name}" loading="lazy" />
+        <img
+          class="dessert-img"
+          src="https://wsrv.nl/?url=${dessert.image}&w=312&output=webp"
+          srcset="https://wsrv.nl/?url=${dessert.image}&w=312&output=webp 1x, https://wsrv.nl/?url=${dessert.image}&w=624&output=webp 2x"
+          alt="${dessert.name}"
+          loading="lazy"
+          decoding="async"
+          onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${dessert.image}';"
+        />
         <p class="dessert-category">${dessert.category.name}</p>
         <h3 class="dessert-name">${dessert.name}</h3>
         <p class="dessert-text">${dessert.description}</p>

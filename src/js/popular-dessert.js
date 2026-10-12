@@ -128,13 +128,15 @@ function markUpProducts(products) {
     .map(({ _id, category, description, image, name, price }) => {
       return `<li class="swiper-slide popular-product-list-item">
         <img
-          src="${image}"
+          src="https://wsrv.nl/?url=${image}&w=312&output=webp"
+          srcset="https://wsrv.nl/?url=${image}&w=312&output=webp 1x, https://wsrv.nl/?url=${image}&w=624&output=webp 2x"
           alt="${name}"
           width="400"
           height="300"
           class="popular-product-list-item-img"
           loading="lazy"
           decoding="async"
+          onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${image}';"
         />
 
         <div class="popular-product-list-item-info-wrapper">

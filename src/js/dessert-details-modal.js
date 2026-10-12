@@ -38,7 +38,14 @@ function createStarsMarkup() {
 }
 
 function createDessertDetailsMarkup(dessert) {
-  return `<img class="dessert-details-img" src="${dessert.image}" alt="${dessert.name}" />
+  return `<img
+      class="dessert-details-img"
+      src="https://wsrv.nl/?url=${dessert.image}&w=640&output=webp"
+      srcset="https://wsrv.nl/?url=${dessert.image}&w=640&output=webp 1x, https://wsrv.nl/?url=${dessert.image}&w=1280&output=webp 2x"
+      alt="${dessert.name}"
+      decoding="async"
+      onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${dessert.image}';"
+    />
     <div class="dessert-details-info">
       <h2 class="dessert-details-name">${dessert.name}</h2>
       <p class="dessert-details-price">${dessert.price} грн</p>
