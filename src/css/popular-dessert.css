@@ -95,6 +95,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.popular-swiper-svg {
+  stroke: currentColor;
+}
+
 .popular-product-list-item-btn {
   padding: 10px;
 }
