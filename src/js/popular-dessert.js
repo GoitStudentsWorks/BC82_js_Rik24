@@ -2,7 +2,6 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import axios from 'axios';
 import iziToast from 'izitoast';
@@ -121,7 +120,6 @@ function onClickOpenModal(event) {
 
   openDessertDetails(dessertButton.dataset.id);
 }
-
 //СТВОРЕННЯ РОЗМІТКИ
 function markUpProducts(products) {
   return products
