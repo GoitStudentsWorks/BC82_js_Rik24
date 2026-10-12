@@ -9,7 +9,7 @@
   margin-bottom: 40px;
 }
 
-.feedback-swiper-wrapper {
+.feedback-swiper {
   margin-bottom: 32px;
 }
 
@@ -38,11 +38,10 @@
 
 .feedback-description {
   font-size: 18px;
-  margin-bottom: 24px;
+  margin-bottom: auto;
 }
 
 .feedback-name {
-  margin-top: auto;
   font-weight: 600;
 }
 
