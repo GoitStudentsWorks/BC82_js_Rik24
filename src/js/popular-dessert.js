@@ -21,7 +21,7 @@ const API_ENDPOINT = {
 };
 // CONSTANTS
 let page = 1;
-const limit = 10;
+const limit = 4;
 let totalPages = null;
 
 ///НАЛАШТУВАННЯ СВАЙПЕРА
@@ -87,7 +87,7 @@ const swiperOptions = {
 const createPopularSwiper = () => new Swiper('.popular-swiper', swiperOptions);
 
 ///ЗАПРОСИ ДО БЕКЕНДУ
-async function getPopularProducts(page = 1, limit = 3) {
+async function getPopularProducts(page = 1, limit = 4) {
   const { data } = await axios(
     `${API_ENDPOINT.DESSERTS}?page=${page}&limit=${limit}&type=popular`
   );
@@ -130,7 +130,11 @@ function markUpProducts(products) {
         <img
           src="${image}"
           alt="${name}"
+          width="400"
+          height="300"
           class="popular-product-list-item-img"
+          loading="lazy"
+          decoding="async"
         />
 
         <div class="popular-product-list-item-info-wrapper">
