@@ -126,7 +126,6 @@ body:has(.mobile-menu.is-open) {
   background-color: var(--color-wewak-dark);
 }
 
-/* Кнопка "До покупок" */
 .mobile-menu-btn {
   margin-top: 46px;
   display: flex;
