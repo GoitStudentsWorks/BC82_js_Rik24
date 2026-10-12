@@ -37,11 +37,11 @@
   opacity: 0.5;
 }
 
-.footer-item:active {
+.footer-link:active {
   opacity: 0.7;
 }
 
-.footer-item:disabled {
+.footer-link:disabled {
   opacity: 0.2;
   cursor: not-allowed;
 }
