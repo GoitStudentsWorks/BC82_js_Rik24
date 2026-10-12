@@ -30,7 +30,6 @@
 
   width: 100%;
   min-width: 0;
-  height: 433px;
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -207,7 +206,6 @@
 
   .popular-product-list-item.swiper-slide {
     min-width: 344px;
-    height: 452px;
   }
 
   .popular-product-list-item-img {
@@ -223,7 +221,6 @@
 
   .popular-product-list-item.swiper-slide {
     min-width: 0;
-    height: 500px;
   }
 
   .popular-product-list-item-img {
