@@ -30,6 +30,8 @@ const swiperOptions = {
   slidesPerView: 1,
   spaceBetween: 16,
   resistance: false,
+  resistanceRatio: 0,
+  touchReleaseOnEdges: true,
   navigation: {
     nextEl: '.popular-swiper-button-next',
     prevEl: '.popular-swiper-button-prev',
