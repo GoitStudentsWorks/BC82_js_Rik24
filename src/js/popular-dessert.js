@@ -134,6 +134,7 @@ function markUpProducts(products) {
           height="300"
           class="popular-product-list-item-img"
           loading="lazy"
+          decoding="async"
         />
 
         <div class="popular-product-list-item-info-wrapper">
