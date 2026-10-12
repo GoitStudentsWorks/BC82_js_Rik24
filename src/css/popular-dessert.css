@@ -96,9 +96,15 @@
   justify-content: center;
 }
 
+.popular-swiper-button-next:disabled,
+.popular-swiper-button-prev:disabled {
+  color: var(--color-scheme-1-foreground);
+}
+
 .popular-swiper-svg {
   stroke: currentColor;
 }
+
 
 .popular-product-list-item-btn {
   padding: 10px;
