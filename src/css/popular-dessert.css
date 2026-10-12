@@ -1,0 +1,219 @@
+.popular-product-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.popular-product-title {
+  margin-bottom: 32px;
+}
+
+.popular-swiper {
+  overflow: hidden;
+}
+
+.popular-product-list {
+  margin-bottom: 24px;
+}
+
+.popular-product-list-item.swiper-slide {
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-scheme-1-foreground);
+  color: var(--color-scheme-1-text);
+  font-size: 14px;
+
+  padding: 16px;
+
+  border: 1px solid var(--color-scheme-1-border);
+  border-radius: 16px;
+
+  width: 100%;
+  min-width: 0;
+  height: 433px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.popular-product-list-item-img {
+  border-radius: 8px;
+  width: 100%;
+  height: 227px;
+  flex: 0 0 227px;
+  flex-shrink: 0;
+  margin-bottom: 16px;
+  object-fit: cover;
+}
+.popular-product-list-item-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+}
+.popular-product-list-item-category {
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 21px;
+  margin-bottom: 12px;
+}
+.popular-product-list-item-title {
+  overflow: hidden;
+  min-height: 27px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+.popular-product-list-item-description {
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 42px;
+  max-height: 42px;
+  overflow: hidden;
+  line-clamp: 2;
+}
+.popular-product-list-item-price-btn-modal-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+.popular-product-list-item-price {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+}
+.popular-product-list-item-btn,
+.popular-swiper-button-next,
+.popular-swiper-button-prev {
+  border: 2px solid var(--color-neutral-darkest);
+  border-radius: 100px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popular-product-list-item-btn {
+  padding: 10px;
+}
+.popular-product-list-item-btn:not(:disabled):hover,
+.popular-swiper-button-next:not(:disabled):hover,
+.popular-swiper-button-prev:not(:disabled):hover {
+  background: var(--color-wewak);
+  transition: background 200ms ease;
+}
+.popular-product-list-item-btn:not(:disabled):active,
+.popular-swiper-button-next:not(:disabled):active,
+.popular-swiper-button-prev:not(:disabled):active {
+  background: var(--color-wewak-dark);
+}
+
+.popular-product-list-item-btn svg,
+.popular-swiper-button-next svg,
+.popular-swiper-button-prev svg {
+  min-width: 24px;
+  min-height: 24px;
+  fill: var(--color-neutral-darkest);
+}
+.popular-swiper-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popular-swiper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 8px;
+}
+
+.popular-swiper-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: var(--opacity-neutral-darkest-20);
+  opacity: 1;
+  transition:
+    opacity 250ms ease,
+    transform 200ms ease,
+    left 200ms ease;
+}
+
+#popular-product
+  .popular-swiper-pagination.swiper-pagination-bullets-dynamic.swiper-pagination-horizontal {
+  left: 0;
+  transform: none;
+}
+
+.popular-swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--color-neutral-darkest);
+  opacity: 1;
+}
+
+.popular-swiper-buttons {
+  display: flex;
+  gap: 16px;
+}
+.popular-swiper-button-next,
+.popular-swiper-button-prev {
+  background-color: var(--color-scheme-1-foreground);
+  padding: 12px;
+}
+.popular-swiper-button-next svg,
+.popular-swiper-button-prev svg {
+  fill: var(--color-scheme-1-text);
+}
+
+.popular-swiper-button-next.swiper-button-disabled,
+.popular-swiper-button-prev.swiper-button-disabled {
+  border-color: var(--color-neutral-light);
+  opacity: 1;
+  cursor: default;
+}
+
+.popular-swiper-button-next.swiper-button-disabled svg,
+.popular-swiper-button-prev.swiper-button-disabled svg {
+  fill: var(--color-neutral-light);
+}
+
+@media screen and (min-width: 768px) {
+  .popular-product-title {
+    text-align: left;
+  }
+
+  .popular-product-list {
+    margin-bottom: 32px;
+  }
+
+  .popular-product-list-item.swiper-slide {
+    min-width: 344px;
+    height: 452px;
+  }
+
+  .popular-product-list-item-img {
+    height: 234px;
+    flex-basis: 234px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .popular-product-list {
+    margin-bottom: 40px;
+  }
+
+  .popular-product-list-item.swiper-slide {
+    min-width: 0;
+    height: 500px;
+  }
+
+  .popular-product-list-item-img {
+    height: auto;
+    flex-basis: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
