@@ -69,7 +69,7 @@ function closeDetailsModal() {
   document.removeEventListener('keydown', onEscapePress);
 }
 
-async function openDessertDetails(id) {
+export async function openDessertDetails(id) {
   currentDessertId = id;
   contentEl.innerHTML = '';
   loaderEl.classList.add('is-visible');
