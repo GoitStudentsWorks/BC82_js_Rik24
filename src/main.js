@@ -1,6 +1,7 @@
 import './js/header';
 
 import './js/hero';
+import './js/popular-dessert';
 import './js/dessert-list';
 import './js/about';
 import './js/faq';
