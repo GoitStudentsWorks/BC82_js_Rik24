@@ -136,6 +136,10 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .feedback-text {
+    margin-bottom: 80px;
+  }
+
   .feedback-swiper-slide {
     padding: 32px;
   }
