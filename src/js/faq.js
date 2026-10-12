@@ -11,5 +11,4 @@ new Accordion('.js-faq-accordion', {
   panelClass: 'js-faq-ac-panel',
   duration: 300,
   showMultiple: false,
-  openOnInit: [0],
 });

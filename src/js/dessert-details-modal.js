@@ -2,19 +2,22 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'css-star-rating/css/star-rating.css';
+import iconsUrl from '../img/icons.svg';
 import { openOrderModal } from './order-modal';
 
-const BASE_URL = 'https://deserts-store.b.goit.study/api';
-const dessertList = document.querySelector('.dessert-list');
-const backdrop = document.querySelector('.dessert-details-modal-backdrop');
-const closeBtn = document.querySelector('.dessert-details-close-btn');
-const loader = document.querySelector('.dessert-details-loader');
-const content = document.querySelector('.dessert-details-content');
+axios.defaults.baseURL = 'https://deserts-store.b.goit.study/api/';
+
+const dessertListEl = document.querySelector('.dessert-list');
+const backdropEl = document.querySelector('.dessert-details-modal-backdrop');
+const closeBtnEl = document.querySelector('.dessert-details-close-btn');
+const loaderEl = document.querySelector('.dessert-details-loader');
+const contentEl = document.querySelector('.dessert-details-content');
 
 let currentDessertId = null;
+let currentDessertName = '';
 
 async function getDessertById(id) {
-  const res = await axios.get(`${BASE_URL}/desserts/${id}`);
+  const res = await axios.get(`desserts/${id}`);
   return res.data;
 }
 
@@ -27,9 +30,9 @@ function createClassFromRate(rate) {
 
 function createStarsMarkup() {
   const star = `<div class="star">
-      <svg class="star-empty"><use href="/img/star-rating.icons.svg#star-empty"></use></svg>
-      <svg class="star-half"><use href="/img/star-rating.icons.svg#star-half"></use></svg>
-      <svg class="star-filled"><use href="/img/star-rating.icons.svg#star-filled"></use></svg>
+      <svg class="star-empty"><use href="${iconsUrl}#star-empty"></use></svg>
+      <svg class="star-half"><use href="${iconsUrl}#star-half"></use></svg>
+      <svg class="star-filled"><use href="${iconsUrl}#star-filled"></use></svg>
     </div>`;
   return star.repeat(5);
 }
@@ -57,24 +60,25 @@ function onEscapePress(event) {
 }
 
 function showDetailsModal() {
-  backdrop.classList.add('is-modal-open');
+  backdropEl.classList.add('is-modal-open');
   document.addEventListener('keydown', onEscapePress);
 }
 
 function closeDetailsModal() {
-  backdrop.classList.remove('is-modal-open');
+  backdropEl.classList.remove('is-modal-open');
   document.removeEventListener('keydown', onEscapePress);
 }
 
 export async function openDessertDetails(id) {
   currentDessertId = id;
-  content.innerHTML = '';
-  loader.classList.add('is-visible');
+  contentEl.innerHTML = '';
+  loaderEl.classList.add('is-visible');
   showDetailsModal();
 
   try {
     const dessert = await getDessertById(id);
-    content.innerHTML = createDessertDetailsMarkup(dessert);
+    currentDessertName = dessert.name;
+    contentEl.innerHTML = createDessertDetailsMarkup(dessert);
   } catch (err) {
     closeDetailsModal();
     iziToast.error({
@@ -82,28 +86,28 @@ export async function openDessertDetails(id) {
       position: 'topRight',
     });
   } finally {
-    loader.classList.remove('is-visible');
+    loaderEl.classList.remove('is-visible');
   }
 }
 
-dessertList.addEventListener('click', event => {
+dessertListEl.addEventListener('click', event => {
   const dessertBtn = event.target.closest('.dessert-btn');
   if (!dessertBtn) return;
 
   openDessertDetails(dessertBtn.dataset.id);
 });
 
-closeBtn.addEventListener('click', closeDetailsModal);
+closeBtnEl.addEventListener('click', closeDetailsModal);
 
-backdrop.addEventListener('click', event => {
+backdropEl.addEventListener('click', event => {
   if (event.target === event.currentTarget) {
     closeDetailsModal();
   }
 });
 
-content.addEventListener('click', event => {
+contentEl.addEventListener('click', event => {
   if (!event.target.closest('.dessert-details-order-btn')) return;
 
   closeDetailsModal();
-  openOrderModal(currentDessertId, showDetailsModal);
+  openOrderModal(currentDessertId, currentDessertName, showDetailsModal);
 });

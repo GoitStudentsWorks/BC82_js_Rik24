@@ -30,7 +30,6 @@
 
   width: 100%;
   min-width: 0;
-  height: 433px;
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -95,6 +94,21 @@
   align-items: center;
   justify-content: center;
 }
+
+.popular-swiper-button-next:disabled,
+.popular-swiper-button-prev:disabled {
+    color: #c6cdcd;
+    border-color: #c6cdcd;
+    background-color: #ecf3f3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.popular-swiper-svg {
+  stroke: currentColor;
+}
+
+
 .popular-product-list-item-btn {
   padding: 10px;
 }
@@ -192,7 +206,6 @@
 
   .popular-product-list-item.swiper-slide {
     min-width: 344px;
-    height: 452px;
   }
 
   .popular-product-list-item-img {
@@ -208,7 +221,6 @@
 
   .popular-product-list-item.swiper-slide {
     min-width: 0;
-    height: 500px;
   }
 
   .popular-product-list-item-img {

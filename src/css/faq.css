@@ -3,7 +3,7 @@
   color: var(--Color-Scheme-1-Text, #080c0c);
   text-align: center;
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2; /* 43.2px */
   letter-spacing: -0.01em;
 }
@@ -27,6 +27,8 @@
 .faq-ac-header-text {
   flex: 1;
   margin: 0;
+  font-weight: 600;
+  font-size: 16px;
 }
 .faq-ac-trigger {
   flex-shrink: 0;
@@ -61,6 +63,9 @@
 /* Accordion styles */
 
 @media screen and (min-width: 768px) {
+  .faq-ac-header-text {
+    font-size: 18px;
+  }
 }
 @media screen and (min-width: 1440px) {
   .faq-inner {
