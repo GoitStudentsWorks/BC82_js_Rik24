@@ -19,8 +19,8 @@
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 250ms ease,
+    visibility 250ms ease;
 }
 
 .dessert-details-modal-backdrop.is-modal-open {
@@ -55,6 +55,13 @@
 
   border: none;
   background-color: var(--opacity-transparent);
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dessert-details-close-btn:hover,
+.dessert-details-close-btn:focus {
+  color: var(--color-wewak);
 }
 
 .dessert-details-close-icon {
@@ -126,6 +133,20 @@
   line-height: 1.5;
 
   background-color: var(--color-wewak);
+
+  transition:
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dessert-details-order-btn:hover,
+.dessert-details-order-btn:focus {
+  border-color: var(--color-neutral-darkest);
+  background-color: var(--color-white);
+}
+
+.dessert-details-order-btn:active {
+  background-color: var(--color-wewak-light);
 }
 
 @media screen and (min-width: 768px) {
