@@ -1,0 +1,151 @@
+import{a as l,i as u,S as q,N as P,P as M,A as ne}from"./assets/vendor-D8_pSMXa.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))i(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const c of a.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&i(c)}).observe(document,{childList:!0,subtree:!0});function s(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function i(r){if(r.ep)return;r.ep=!0;const a=s(r);fetch(r.href,a)}})();document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".header-burger-btn"),t=document.querySelector(".mobile-menu-close-btn"),s=document.querySelector(".mobile-menu");function i(){s.classList.toggle("is-open")}e&&e.addEventListener("click",i),t&&t.addEventListener("click",i),document.querySelectorAll(".mobile-menu-link, .mobile-menu-btn").forEach(a=>{a.addEventListener("click",()=>{s.classList.remove("is-open")})})});const n="/BC82_js_Rik24/assets/icons-0lH9uKN_.svg";l.defaults.baseURL="https://deserts-store.b.goit.study/api/";const b="order-form-data",D=document.querySelector(".order-modal-backdrop"),ie=document.querySelector(".order-close-btn"),o=document.querySelector(".order-form"),_=document.querySelector(".order-submit-btn"),j=document.querySelector(".order-loader");let H=null,V="",$=null;function oe(){const e={name:o.elements.name.value,phone:o.elements.phone.value,comment:o.elements.comment.value};localStorage.setItem(b,JSON.stringify(e))}function le(){const e=localStorage.getItem(b);if(e)try{const t=JSON.parse(e);o.elements.name.value=t.name||"",o.elements.phone.value=t.phone||"",o.elements.comment.value=t.comment||""}catch{localStorage.removeItem(b)}}function ce(e){const t=e.value.trim();if(e.name==="name"){if(t==="")return"Вкажіть ім'я";if(t.length<2)return"Ім'я має містити щонайменше 2 символи"}if(e.name==="phone"){const s=t.replaceAll(" ","");if(s==="")return"Вкажіть телефон";if(!/^\d{12}$/.test(s))return"Телефон має містити 12 цифр, наприклад 380961234568"}if(e.name==="comment"){if(t==="")return"Напишіть коментар";if(t.length<2)return"Коментар має містити щонайменше 2 символи"}return""}function U(e,t){const s=e.closest(".order-field");s.querySelector(".order-error").textContent=t,s.classList.toggle("is-error",t!==""),e.setAttribute("aria-invalid",t!=="")}function de(){let e=!0;for(const t of["name","phone","comment"]){const s=o.elements[t],i=ce(s);U(s,i),i!==""&&(e=!1)}return e}function K(e){e.key==="Escape"&&w()}function ue(e,t,s){H=e,V=t,$=s,le(),D.classList.add("is-modal-open"),document.addEventListener("keydown",K)}function w(e=!0){D.classList.remove("is-modal-open"),document.removeEventListener("keydown",K),e&&$&&$()}o.addEventListener("input",e=>{oe(),U(e.target,"")});ie.addEventListener("click",()=>w());D.addEventListener("click",e=>{e.target===e.currentTarget&&w()});o.addEventListener("submit",async e=>{if(e.preventDefault(),!de()){o.querySelector(".is-error .order-input").focus();return}const t={name:o.elements.name.value.trim(),phone:o.elements.phone.value.replaceAll(" ",""),comment:o.elements.comment.value.trim(),dessertId:H};j.classList.add("is-visible"),_.disabled=!0;try{await l.post("orders",t),u.success({message:`Дякуємо! Замовлення "${V}" прийнято, ми скоро зв'яжемось з вами.`,position:"topRight"}),o.reset(),localStorage.removeItem(b),w(!1)}catch{u.error({message:"Не вдалося надіслати замовлення. Перевірте дані й спробуйте ще раз.",position:"topRight"})}finally{j.classList.remove("is-visible"),_.disabled=!1}});l.defaults.baseURL="https://deserts-store.b.goit.study/api/";const pe=document.querySelector(".dessert-list"),C=document.querySelector(".dessert-details-modal-backdrop"),me=document.querySelector(".dessert-details-close-btn"),F=document.querySelector(".dessert-details-loader"),L=document.querySelector(".dessert-details-content");let z=null,G="";async function fe(e){return(await l.get(`desserts/${e}`)).data}function ge(e){return Number.isInteger(e)?`value-${e}`:`value-${Math.floor(e)} half`}function ve(){return`<div class="star">
+      <svg class="star-empty"><use href="${n}#star-empty"></use></svg>
+      <svg class="star-half"><use href="${n}#star-half"></use></svg>
+      <svg class="star-filled"><use href="${n}#star-filled"></use></svg>
+    </div>`.repeat(5)}function be(e){return`<img
+      class="dessert-details-img"
+      src="https://wsrv.nl/?url=${e.image}&w=640&output=webp"
+      srcset="https://wsrv.nl/?url=${e.image}&w=640&output=webp 1x, https://wsrv.nl/?url=${e.image}&w=1280&output=webp 2x"
+      alt="${e.name}"
+      decoding="async"
+      onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${e.image}';"
+    />
+    <div class="dessert-details-info">
+      <h2 class="dessert-details-name">${e.name}</h2>
+      <p class="dessert-details-price">${e.price} грн</p>
+      <div class="rating dessert-details-rating ${ge(e.rate)}" aria-label="Рейтинг ${e.rate} з 5">
+        <div class="star-container">${ve()}</div>
+      </div>
+      <p class="dessert-details-text">${e.description}</p>
+      <p class="dessert-details-composition">
+        <span class="dessert-details-composition-label">Склад</span>: ${e.composition}
+      </p>
+      <button type="button" class="dessert-details-order-btn">Перейти до замовлення</button>
+    </div>`}function J(e){e.key==="Escape"&&f()}function W(){C.classList.add("is-modal-open"),document.addEventListener("keydown",J)}function f(){C.classList.remove("is-modal-open"),document.removeEventListener("keydown",J)}async function Y(e){z=e,L.innerHTML="",F.classList.add("is-visible"),W();try{const t=await fe(e);G=t.name,L.innerHTML=be(t)}catch{f(),u.error({message:"Не вдалося завантажити десерт. Спробуйте пізніше.",position:"topRight"})}finally{F.classList.remove("is-visible")}}pe.addEventListener("click",e=>{const t=e.target.closest(".dessert-btn");t&&Y(t.dataset.id)});me.addEventListener("click",f);C.addEventListener("click",e=>{e.target===e.currentTarget&&f()});L.addEventListener("click",e=>{e.target.closest(".dessert-details-order-btn")&&(f(),ue(z,G,W))});l.defaults.baseURL="https://deserts-store.b.goit.study/api";const B={listPopularList:document.querySelector(".popular-product-list")},he={DESSERTS:"/desserts"};let g=1;const E=4;let Q=null;const ye={modules:[P,M],slidesPerView:1,spaceBetween:16,resistance:!1,resistanceRatio:0,touchReleaseOnEdges:!0,navigation:{nextEl:".popular-swiper-button-next",prevEl:".popular-swiper-button-prev"},pagination:{el:".popular-swiper-pagination",dynamicBullets:!0,dynamicMainBullets:3,clickable:!0},breakpoints:{768:{slidesPerView:2,spaceBetween:16},1440:{slidesPerView:3,spaceBetween:24}},on:{async slideChange(e){const{realIndex:t,slides:{length:s}}=e;if(!(!(t+1>=s-2)||g>=Q))try{g+=1;const{desserts:r}=await X(g,E),a=Z(r);B.listPopularList.insertAdjacentHTML("beforeend",a),e.update()}catch(r){u.error({title:"Error",message:`Помилка отримання Популярних продуктів пiд час довантаження ${r}`}),console.log(`Помилка отримання Популярних продуктів пiд час довантаження ${r}`)}}}},we=()=>new q(".popular-swiper",ye);async function X(e=1,t=4){const{data:s}=await l(`${he.DESSERTS}?page=${e}&limit=${t}&type=popular`);return s}document.addEventListener("DOMContentLoaded",$e);B.listPopularList.addEventListener("click",Le);async function $e(){try{const{desserts:e,total:t}=await X(g,E);Q=Math.ceil(t/E);const s=Z(e);B.listPopularList.insertAdjacentHTML("beforeend",s),we()}catch(e){u.error({title:"Error",message:`Помилка отримання Популярних продуктів пiд час ініціалізації ${e}`}),console.log(`Помилка отримання Популярних продуктів пiд час ініціалізації ${e}`)}}function Le(e){const t=e.target.closest(".popular-product-list-item-btn");t&&Y(t.dataset.id)}function Z(e){return e.map(({_id:t,category:s,description:i,image:r,name:a,price:c})=>`<li class="swiper-slide popular-product-list-item">
+        <img
+          src="https://wsrv.nl/?url=${r}&w=312&output=webp"
+          srcset="https://wsrv.nl/?url=${r}&w=312&output=webp 1x, https://wsrv.nl/?url=${r}&w=624&output=webp 2x"
+          alt="${a}"
+          width="400"
+          height="300"
+          class="popular-product-list-item-img"
+          loading="lazy"
+          decoding="async"
+          onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${r}';"
+        />
+
+        <div class="popular-product-list-item-info-wrapper">
+          <p class="popular-product-list-item-category">
+            ${s.name}
+          </p>
+
+          <h3 class="popular-product-list-item-title">
+            ${a}
+          </h3>
+
+          <p class="popular-product-list-item-description">
+            ${i}
+          </p>
+        </div>
+
+        <div class="popular-product-list-item-price-btn-modal-wrapper">
+          <p class="popular-product-list-item-price">
+            ${c} грн
+          </p>
+
+          <button
+            type="button"
+            class="popular-product-list-item-btn"
+            data-id="${t}"
+            aria-label="Детальніше про ${a}"
+          >
+            <svg width="24" height="24">
+              <use href="${n}#arrow_outwardicon"></use>
+            </svg>
+          </button>
+        </div>
+      </li>`).join("")}l.defaults.baseURL="https://deserts-store.b.goit.study/api/";const ee=8,h=document.querySelector(".category-list"),x=document.querySelector(".dessert-list"),p=document.querySelector(".load-more-btn"),te=document.querySelector(".loader");let d=1,m="select-all";async function Ee(){return(await l.get("categories")).data}async function I(e,t){const s={page:e,limit:ee};return t!=="select-all"&&(s.category=t),(await l.get("desserts",{params:s})).data}function ke(e){const t=e.map(s=>`<li>
+        <button type="button" class="category-select-btn" data-id="${s._id}">${s.name}</button></li>`).join("");h.insertAdjacentHTML("beforeend",t)}function A(e){return e.map(t=>`<li class="dessert-item">
+        <img
+          class="dessert-img"
+          src="https://wsrv.nl/?url=${t.image}&w=312&output=webp"
+          srcset="https://wsrv.nl/?url=${t.image}&w=312&output=webp 1x, https://wsrv.nl/?url=${t.image}&w=624&output=webp 2x"
+          alt="${t.name}"
+          loading="lazy"
+          decoding="async"
+          onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = '${t.image}';"
+        />
+        <p class="dessert-category">${t.category.name}</p>
+        <h3 class="dessert-name">${t.name}</h3>
+        <p class="dessert-text">${t.description}</p>
+        <div class="dessert-bottom">
+          <p class="dessert-price">${t.price} грн</p>
+          <button type="button" class="dessert-btn" data-id="${t._id}" aria-label="Детальніше про ${t.name}">
+            <svg class="dessert-btn-icon" width="24" height="24">
+              <use href="${n}#arrow_outwardicon"></use>
+            </svg>
+          </button>
+        </div>
+      </li>`).join("")}function N(e){d*ee<e?p.classList.add("is-visible"):p.classList.remove("is-visible")}function O(){u.error({message:"Не вдалося завантажити десерти. Спробуйте пізніше.",position:"topRight"})}function R(){te.classList.add("is-visible")}function T(){te.classList.remove("is-visible")}async function Se(){R();try{const e=await Ee();ke(e);const t=await I(d,m);x.innerHTML=A(t.desserts),N(t.totalItems)}catch{O()}finally{T()}}Se();const y=document.querySelector(".category-wrap"),qe=document.querySelector(".category-toggle");qe.addEventListener("click",()=>y.classList.toggle("is-open"));const k=document.querySelector(".current-category");k.textContent=h.querySelector(".is-active").textContent.trim();h.addEventListener("click",async e=>{const t=e.target.closest(".category-select-btn");if(!t)return;const s=h.querySelector(".is-active"),i=m,r=d,a=p.classList.contains("is-visible");s.classList.remove("is-active"),t.classList.add("is-active"),k.textContent=t.textContent.trim(),y.classList.remove("is-open"),d=1,m=t.dataset.id,R(),p.classList.remove("is-visible");try{const c=await I(d,m);x.innerHTML=A(c.desserts),N(c.totalItems)}catch{t.classList.remove("is-active"),s.classList.add("is-active"),k.textContent=s.textContent.trim(),m=i,d=r,a&&p.classList.add("is-visible"),O()}finally{T()}});document.addEventListener("click",e=>{y.contains(e.target)||y.classList.remove("is-open")});p.addEventListener("click",async()=>{d+=1,R(),p.classList.remove("is-visible");try{const e=await I(d,m);x.insertAdjacentHTML("beforeend",A(e.desserts)),N(e.totalItems)}catch{O()}finally{T()}});new q(".about-us__swiper",{modules:[P,M],enabled:!1,slidesPerView:1,slidesPerGroup:1,spaceBetween:0,loop:!1,navigation:{nextEl:".about-us__button--next",prevEl:".about-us__button--prev"},pagination:{el:".about-us__pagination",clickable:!0},breakpoints:{768:{enabled:!0,slidesPerView:2,slidesPerGroup:1,spaceBetween:24},1440:{enabled:!0,slidesPerView:2,slidesPerGroup:1,spaceBetween:24}}});document.querySelector(".js-faq-accordion");new ne(".js-faq-accordion",{elementClass:"js-faq-ac",triggerClass:"js-faq-ac-trigger",panelClass:"js-faq-ac-panel",duration:300,showMultiple:!1});const Pe={modules:[P,M],grabCursor:!0,spaceBetween:20,slidesPerView:1,breakpoints:{768:{slidesPerView:3,spaceBetween:24}},pagination:{el:".feedback-swiper-pagination",dynamicBullets:!0,clickable:!0},navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},on:{async slideChange(e){const{realIndex:t,slides:{length:s}}=e;if(!(!(t+1>=s-2)||v>=se))try{v+=1;const{feedbacks:r}=await re(v,S);ae(r),e.update()}catch(r){u.error({title:"Error",message:`Помилка отримання Фiдбекiв пiд час довантаження ${r}`}),console.log(`Помилка отримання Фiдбекiв пiд час довантаження ${r}`)}}}},Me=()=>new q(".feedback-swiper",Pe);let v=1;const S=10;let se=null;const De=document.querySelector(".feedback-swiper-wrapper");document.addEventListener("DOMContentLoaded",Ce);async function Ce(){try{const{feedbacks:e,total:t}=await re(v,S);se=Math.ceil(t/S),ae(e),Me()}catch(e){u.error({title:"Error",message:`Помилка отримання Фiдбекiв пiд час ініціалізації ${e}`}),console.log(`Помилка отримання Фiдбекiв пiд час ініціалізації ${e}`)}}l.defaults.baseURL="https://deserts-store.b.goit.study/api/";const Be={FEEDBACKS:"feedbacks"};async function re(e,t){return(await l(`${Be.FEEDBACKS}?page=${e}&limit=${t}`)).data}function ae(e){const t=e.map(({author:s,description:i,rate:r})=>{const a=Ie(r);return xe(s,i,a)}).join("");De.insertAdjacentHTML("beforeend",t)}function xe(e,t,s){return`<div class="feedback-swiper-slide swiper-slide">
+      <div class="rating ${s}">
+            <div class="star-container">
+              <div class="star">
+                <svg class="star-empty">
+                  <use href="${n}#star-empty"></use>
+                </svg>
+                <svg class="star-half">
+                  <use href="${n}#star-half"></use>
+                </svg>
+                <svg class="star-filled">
+                  <use href="${n}#star-filled"></use>
+                </svg>
+              </div>
+              <div class="star">
+                <svg class="star-empty">
+                  <use href="${n}#star-empty"></use>
+                </svg>
+                <svg class="star-half">
+                  <use href="${n}#star-half"></use>
+                </svg>
+                <svg class="star-filled">
+                  <use href="${n}#star-filled"></use>
+                </svg>
+              </div>
+              <div class="star">
+                <svg class="star-empty">
+                  <use href="${n}#star-empty"></use>
+                </svg>
+                <svg class="star-half">
+                  <use href="${n}#star-half"></use>
+                </svg>
+                <svg class="star-filled">
+                  <use href="${n}#star-filled"></use>
+                </svg>
+              </div>
+              <div class="star">
+                <svg class="star-empty">
+                  <use href="${n}#star-empty"></use>
+                </svg>
+                <svg class="star-half">
+                  <use href="${n}#star-half"></use>
+                </svg>
+                <svg class="star-filled">
+                  <use href="${n}#star-filled"></use>
+                </svg>
+              </div>
+              <div class="star">
+                <svg class="star-empty">
+                  <use href="${n}#star-empty"></use>
+                </svg>
+                <svg class="star-half">
+                  <use href="${n}#star-half"></use>
+                </svg>
+                <svg class="star-filled">
+                  <use href="${n}#star-filled"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="feedback-description">"${t}"</p>
+          <p class="feedback-name">${e}</p></div>`}function Ie(e){return Number.isInteger(e)?`value-${e}`:`value-${Number.parseInt(e)} half`}
+//# sourceMappingURL=index.js.map
