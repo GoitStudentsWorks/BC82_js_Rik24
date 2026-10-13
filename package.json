@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/SweetCraft/",
+    "build": "vite build --base=/BC82_js_Rik24/",
     "preview": "vite preview"
   },
   "devDependencies": {
